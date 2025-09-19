@@ -15,6 +15,16 @@ This container bundles caddy and auto-configures it for you. It also covers [vau
 - You can add your own Caddy configurations in `/data/caddy-imports/` inside the Caddy container (`sudo docker exec -it nextcloud-aio-caddy bash`). These will be imported on container startup. **Please note:** If you do not have CLI access to the server, you can now run docker commands via a web session by using this community container: https://github.com/nextcloud/all-in-one/tree/main/community-containers/container-management
 - See https://github.com/nextcloud/all-in-one/tree/main/community-containers#community-containers how to add it to the AIO stack
 
+### Block access to admininstrative interfaces on IP-level
+To increase security of the administrative interfaces for vaultwarden, stalwart or lldap, it is possible to define a list of allowed IPs to access these interfaces using https.
+-After the container was started the first time, you should see a new `nextcloud-aio-caddy` folder when you open the files app with the default `admin` user
+-to restrict access to vaultwarden/bitwarden, create a new file `allowed-IPs-bitwarden.txt` in that folder
+-to restrict access to stalwart, create a new file `allowed-IPs-mail.txt` in that folder
+-to restrict access to lldap, create a new file `allowed-IPs-lldap.txt` in that folder
+-in that files, you can put a space-delimited list of IPs that should be allowed to access the respective interface, e.g. ``11.22.33.44 192.168.1.0/24``
+-if a file is missing or empty the respective access is not restricted
+
+
 ### Repository
 https://github.com/szaimen/aio-caddy
 
