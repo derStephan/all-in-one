@@ -60,8 +60,7 @@ services:
     restart: unless-stopped
     read_only: true
     tmpfs:
-      - /var/log/supervisord
-      - /var/run/supervisord
+      - /run
       - /usr/local/apache2/logs
       - /tmp
       - /home/www-data
@@ -321,8 +320,7 @@ services:
       - talk-recording
     read_only: true
     tmpfs:
-      - /var/log/supervisord
-      - /var/run/supervisord
+      - /run
       - /opt/eturnal/run
       - /conf
       - /tmp
@@ -363,7 +361,7 @@ services:
   nextcloud-aio-clamav:
     image: ghcr.io/nextcloud-releases/aio-clamav:latest
     user: "100"
-    init: false
+    init: true
     healthcheck:
       start_period: 60s
       test: /healthcheck.sh
@@ -384,11 +382,9 @@ services:
       - clamav
     read_only: true
     tmpfs:
+      - /run
       - /tmp
       - /var/log/clamav
-      - /run/clamav
-      - /var/log/supervisord
-      - /var/run/supervisord
     cap_drop:
       - NET_RAW
 
